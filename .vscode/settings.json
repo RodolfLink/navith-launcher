@@ -1,0 +1,26 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.vercel": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/target": true,
+    "**/gen": true,
+    "**/logs": true,
+    "**/modpack reap": true,
+    "**/temp_forge_test": true,
+    "**/scratch": true,
+    "**/.archive": true,
+    "**/backup_classic_sidebar": true,
+    "**/backup_pre_carousel": true,
+    "**/*.log": true,
+    "/install_profile.json": true,
+    "/neoforge.jar": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json",
+    "Cargo.toml": "Cargo.lock",
+    "tsconfig.json": "tsconfig.node.json"
+  }
+}

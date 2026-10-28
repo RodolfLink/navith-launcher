@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 112" role="img" aria-labelledby="title">
+  <title id="title">NavithLabs</title>
+  <defs><linearGradient id="light" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#ff3852"/><stop offset="1" stop-color="#ff8792"/></linearGradient></defs>
+  <path d="M27 15H14v82h13M69 15h13v82H69" fill="none" stroke="#f7f7fb" stroke-width="8" stroke-linecap="square"/>
+  <path d="m36 77 31-34" fill="none" stroke="url(#light)" stroke-width="7" stroke-linecap="round"/>
+  <path d="m70 20 4 9 9 4-9 4-4 9-4-9-9-4 9-4 4-9Z" fill="#f7f7fb"/>
+  <path d="m43 30 2.7 6.3L52 39l-6.3 2.7L43 48l-2.7-6.3L34 39l6.3-2.7L43 30Z" fill="#ff4058"/>
+  <circle cx="60" cy="67" r="3" fill="#f7f7fb"/>
+  <circle cx="31" cy="51" r="2.5" fill="#ff4058"/>
+</svg>

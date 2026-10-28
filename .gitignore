@@ -1,0 +1,47 @@
+# Dependencies & build artifacts
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env
+.env.*
+!.env.example
+
+# Tauri build targets
+target/
+src-tauri/target/
+
+# Logs & temp
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Large media & compressed packages (>50MB)
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.zip
+*.rar
+*.7z
+*.mrpack
+*.tar.gz
+
+# Modpacks / Temp unpacked instances
+modpack reap/
+instances/
+runtime/
+
+# Local experiments and generated test data
+/.vercel/
+/scratch/
+/temp_forge_test/
+/backup_classic_sidebar/
+
+# Binaries & Java archives
+*.jar
+
+# OS
+.DS_Store
+Thumbs.db

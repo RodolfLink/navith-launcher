@@ -1,0 +1,636 @@
+:root {
+  --navith-ink: #090c1b;
+  --navith-panel: #10142a;
+  --navith-red: #f13b56;
+  --navith-soft-red: #ff7183;
+  --navith-text: #f8f8fb;
+  --navith-muted: #a7adc2;
+}
+
+.navith-login-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--navith-text);
+  background:
+    radial-gradient(ellipse at 70% 18%, rgba(46, 47, 94, .37), transparent 38%),
+    radial-gradient(ellipse at 0% 100%, rgba(56, 21, 47, .2), transparent 40%),
+    var(--navith-ink);
+  font-family: 'Outfit', 'Segoe UI', 'Trebuchet MS', sans-serif;
+}
+
+.navith-login-shell::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(170, 180, 255, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(170, 180, 255, .025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  content: '';
+  mask-image: radial-gradient(ellipse at 50% 45%, #000 15%, transparent 78%);
+}
+
+.navith-titlebar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  height: 54px;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 0 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, .075);
+  background: rgba(5, 7, 17, .83);
+  backdrop-filter: blur(18px);
+  -webkit-app-region: drag;
+}
+
+.navith-titlebar-brand {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 15px;
+}
+
+.navith-titlebar-brand img {
+  display: block;
+  width: 142px;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.navith-version {
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, .11);
+  border-radius: 5px;
+  color: #8e95af;
+  font: 700 9px/1 'Segoe UI', sans-serif;
+  letter-spacing: 1.2px;
+}
+
+.navith-window-controls {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 5px;
+  -webkit-app-region: no-drag;
+}
+
+.navith-window-controls .window-control {
+  display: grid;
+  width: 34px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: 7px;
+  color: rgba(237, 240, 250, .72);
+  background: transparent;
+  transition: color .16s ease, background-color .16s ease;
+}
+
+.navith-window-controls .window-control:hover { color: #fff; background: rgba(255,255,255,.09); }
+.navith-window-controls .window-control.close:hover { background: #e74358; }
+
+.navith-login-stage {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  min-height: 0;
+  flex: 1;
+  grid-template-columns: minmax(360px, 1fr) minmax(356px, 432px);
+  align-items: center;
+  gap: clamp(30px, 6vw, 102px);
+  overflow: auto;
+  padding: 46px clamp(40px, 8vw, 132px) 46px clamp(46px, 9vw, 150px);
+}
+
+.navith-hero-art {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(54%, 780px);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .82;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.23) 11%, #000 42%, #000 100%);
+}
+
+.navith-hero-art img {
+  position: absolute;
+  right: -4%;
+  bottom: -9%;
+  height: 110%;
+  max-width: none;
+  width: auto;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: drop-shadow(0 24px 55px rgba(0, 0, 0, .28));
+  animation: navith-character-arrive .85s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.navith-login-grid {
+  position: absolute;
+  z-index: -1;
+  top: 14%;
+  right: 42%;
+  width: 1px;
+  height: 72%;
+  background: linear-gradient(transparent, rgba(245, 65, 91, .34), transparent);
+  opacity: .52;
+  pointer-events: none;
+}
+
+.navith-login-glow {
+  position: absolute;
+  z-index: -1;
+  width: 370px;
+  height: 370px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.navith-login-glow-one {
+  top: -240px;
+  right: 30%;
+  background: radial-gradient(circle, rgba(97, 70, 177, .2), transparent 68%);
+}
+
+.navith-login-glow-two {
+  bottom: -290px;
+  left: 18%;
+  background: radial-gradient(circle, rgba(223, 44, 76, .14), transparent 68%);
+}
+
+.navith-story-panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 590px);
+  padding: 4px 0 0;
+  animation: navith-copy-arrive .68s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.navith-status-line,
+.navith-story-kicker,
+.navith-auth-topline,
+.navith-auth-kicker,
+.navith-story-signature,
+.navith-auth-footnote {
+  display: flex;
+  align-items: center;
+  font-family: 'Outfit', 'Segoe UI', 'Trebuchet MS', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+}
+
+.navith-status-line {
+  gap: 9px;
+  margin-bottom: 25px;
+  color: #c2c6d6;
+}
+
+.navith-status-line > span,
+.navith-auth-footnote > span {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--navith-red);
+  box-shadow: 0 0 13px rgba(241, 59, 86, .9);
+}
+
+.navith-status-line > span::after {
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(241, 59, 86, .32);
+  border-radius: inherit;
+  content: '';
+  animation: navith-status-pulse 2.4s ease-out infinite;
+}
+
+.navith-wordmark {
+  display: block;
+  width: clamp(200px, 20vw, 268px);
+  height: auto;
+  margin: 0 0 35px -5px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(1, 2, 12, .38));
+  animation: navith-logo-render .9s .12s cubic-bezier(.16,1,.3,1) both;
+}
+
+.navith-story-rule {
+  width: 74px;
+  height: 2px;
+  margin-bottom: 25px;
+  background: rgba(241, 59, 86, .22);
+}
+
+.navith-story-rule span {
+  display: block;
+  width: 28px;
+  height: 100%;
+  background: var(--navith-red);
+  box-shadow: 0 0 15px rgba(241, 59, 86, .6);
+}
+
+.navith-story-kicker { margin-bottom: 11px; color: var(--navith-soft-red); }
+
+.navith-story-title {
+  margin: 0;
+  color: #f6f6fb;
+  font-family: 'Silkscreen', 'Lucida Console', Consolas, monospace;
+  font-size: clamp(24px, 2.9vw, 44px);
+  font-weight: 900;
+  letter-spacing: -.035em;
+  line-height: 1.22;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, .18);
+}
+
+.navith-story-title span {
+  color: var(--navith-red);
+  text-shadow: 0 0 34px rgba(241, 59, 86, .17);
+}
+
+.navith-story-copy {
+  max-width: 390px;
+  margin: 19px 0 27px;
+  color: #b8bed0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.navith-feature-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.navith-feature-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, .095);
+  border-radius: 6px;
+  color: #e2e4ed;
+  background: rgba(12, 15, 31, .5);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .85px;
+}
+
+.navith-feature-row i { color: var(--navith-soft-red); font-size: 8px; font-style: normal; }
+
+.navith-story-signature {
+  gap: 9px;
+  margin-top: 45px;
+  color: rgba(196, 200, 215, .63);
+  font-size: 9px;
+  letter-spacing: 1.35px;
+}
+
+.navith-story-signature span { color: var(--navith-soft-red); font-size: 15px; }
+
+.navith-auth-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 432px;
+  justify-self: end;
+  padding: 29px 30px 22px;
+  border: 1px solid rgba(222, 226, 249, .14);
+  border-radius: 12px;
+  background: linear-gradient(150deg, rgba(19, 23, 46, .82), rgba(12, 15, 31, .86));
+  box-shadow: 0 24px 90px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .055);
+  backdrop-filter: blur(14px);
+  animation: navith-card-arrive .7s .08s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.navith-auth-card::before {
+  position: absolute;
+  top: -1px;
+  left: 30px;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--navith-red), rgba(241, 59, 86, 0));
+  content: '';
+}
+
+.navith-auth-topline {
+  justify-content: space-between;
+  padding-bottom: 19px;
+  border-bottom: 1px solid rgba(255, 255, 255, .09);
+  color: #dfe2ef;
+  font-size: 9px;
+  letter-spacing: 1.35px;
+}
+
+.navith-auth-index { color: #717a99; font-size: 9px; letter-spacing: .7px; }
+.navith-auth-kicker { margin: 25px 0 8px; color: var(--navith-soft-red); font-size: 9px; letter-spacing: 1.3px; }
+
+.navith-auth-card h2 {
+  margin: 0;
+  color: #f7f7fb;
+  font-size: 27px;
+  font-weight: 750;
+  letter-spacing: -.8px;
+  line-height: 1.12;
+}
+
+.navith-auth-description {
+  margin: 9px 0 17px;
+  color: #a7adc1;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.navith-terms-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 15px;
+  color: #aeb4c8;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.navith-terms-row input {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  margin: 1px 0 0;
+  accent-color: var(--navith-red);
+  cursor: pointer;
+}
+
+.navith-terms-copy { display: inline; }
+.navith-terms-copy label { margin-right: 3px; cursor: pointer; }
+
+.navith-terms-copy button {
+  display: inline;
+  padding: 0;
+  border: 0;
+  color: #eef0f9;
+  background: transparent;
+  font: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(241, 59, 86, .58);
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.navith-provider-button {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 47px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 13px;
+  border: 1px solid rgba(220, 224, 245, .15);
+  border-radius: 7px;
+  color: #f7f8fc;
+  background: rgba(255, 255, 255, .045);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+.navith-provider-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, .28);
+  background-color: rgba(255, 255, 255, .075);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .16);
+}
+
+.navith-provider-button:focus-visible,
+.navith-offline-button:focus-visible,
+.navith-offline-submit:focus-visible {
+  outline: 2px solid var(--navith-soft-red);
+  outline-offset: 3px;
+}
+
+.navith-provider-microsoft {
+  min-height: 60px;
+  justify-content: flex-start;
+  border-color: rgba(241, 59, 86, .66);
+  color: white;
+  background: linear-gradient(105deg, #d82e49, #ee3d55 66%, #db344d);
+  box-shadow: 0 8px 22px rgba(194, 39, 63, .2), inset 0 1px 0 rgba(255, 255, 255, .18);
+}
+
+.navith-provider-microsoft:hover:not(:disabled) {
+  border-color: #ff8795;
+  background: linear-gradient(105deg, #e33a54, #fa526a 66%, #e84058);
+  box-shadow: 0 9px 25px rgba(194, 39, 63, .27), inset 0 1px 0 rgba(255, 255, 255, .22);
+}
+
+.navith-provider-microsoft:disabled,
+.navith-social-providers .navith-provider-button:disabled {
+  box-shadow: none;
+}
+
+.navith-provider-copy { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 3px; text-align: left; }
+.navith-provider-copy strong { font-size: 12px; font-weight: 800; }
+.navith-provider-copy small { color: rgba(255, 255, 255, .76); font-size: 9px; font-weight: 600; }
+.navith-provider-arrow { font-size: 17px; opacity: .85; }
+
+.navith-provider-icon {
+  display: grid;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  place-items: center;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.navith-microsoft-icon { grid-template-columns: repeat(2, 7px); grid-template-rows: repeat(2, 7px); gap: 2px; }
+.navith-microsoft-icon i { width: 7px; height: 7px; background: #fff; }
+.navith-microsoft-icon i:nth-child(2) { opacity: .75; }
+.navith-microsoft-icon i:nth-child(3) { opacity: .86; }
+.navith-microsoft-icon i:nth-child(4) { opacity: .62; }
+.navith-discord-icon { color: #fff; background: #5865f2; font-size: 12px; }
+.navith-google-icon { border: 1px solid rgba(255, 255, 255, .15); color: #4285f4; background: #fff; font-family: Arial, sans-serif; }
+
+.navith-social-providers { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 9px; }
+.navith-social-providers .navith-provider-button { min-height: 43px; justify-content: flex-start; font-size: 11px; }
+
+.navith-cancel-auth {
+  width: 100%;
+  margin-top: 9px;
+  padding: 8px;
+  border: 0;
+  color: #ffadb7;
+  background: transparent;
+  font: 600 10px/1.4 'Segoe UI', sans-serif;
+  cursor: pointer;
+}
+
+.navith-auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 19px 0 12px;
+  color: #7f879f;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.15px;
+  white-space: nowrap;
+}
+
+.navith-auth-divider::before,
+.navith-auth-divider::after { height: 1px; flex: 1; background: rgba(255, 255, 255, .1); content: ''; }
+
+.navith-offline-button,
+.navith-offline-submit {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 13px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 7px;
+  color: #d7daea;
+  background: rgba(255, 255, 255, .025);
+  font: 700 11px/1 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: border-color .18s ease, color .18s ease, background-color .18s ease;
+}
+
+.navith-offline-button:hover:not(:disabled) { border-color: rgba(241, 59, 86, .45); color: #fff; background: rgba(241, 59, 86, .08); }
+.navith-offline-button > span:last-child,
+.navith-offline-submit span { color: var(--navith-soft-red); font-size: 16px; }
+
+.navith-offline-form { display: flex; flex-direction: column; gap: 11px; }
+.navith-offline-back { align-self: flex-start; padding: 0; border: 0; color: #afb5c8; background: transparent; font: 600 10px/1.4 'Segoe UI', sans-serif; cursor: pointer; }
+.navith-offline-back span { margin-right: 5px; color: var(--navith-soft-red); font-size: 15px; vertical-align: -1px; }
+.navith-offline-form label { margin-top: 8px; color: #c9cddd; font-size: 10px; font-weight: 700; }
+.navith-offline-form input { width: 100%; height: 44px; padding: 0 12px; border: 1px solid rgba(255,255,255,.15); border-radius: 6px; outline: none; color: #fff; background: rgba(4,6,15,.7); font: 12px 'Segoe UI', sans-serif; }
+.navith-offline-form input:focus { border-color: var(--navith-red); box-shadow: 0 0 0 3px rgba(241,59,86,.12); }
+.navith-offline-submit { margin-top: 4px; border-color: var(--navith-red); color: #fff; background: var(--navith-red); }
+.navith-offline-submit span { color: #fff; }
+
+.navith-auth-footnote {
+  gap: 8px;
+  margin-top: 18px;
+  color: #848ba3;
+  font-size: 8px;
+  letter-spacing: .9px;
+}
+
+.navith-auth-footnote > span { width: 5px; height: 5px; box-shadow: none; }
+
+.navith-login-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 0 25px;
+  border-top: 1px solid rgba(255, 255, 255, .065);
+  color: #7f859a;
+  background: rgba(6, 8, 17, .64);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.navith-login-footer > span:first-child { color: #e7e8f0; font-size: 12px; font-weight: 800; letter-spacing: .1px; }
+.navith-footer-dot { color: var(--navith-red); }
+.navith-login-footer i { margin-left: 3px; color: var(--navith-red); font-size: 11px; font-style: normal; }
+.navith-main-wordmark { width: 124px; height: auto; object-fit: contain; }
+.settings-about-logo { width: min(210px, 34%); height: auto; object-fit: contain; }
+
+.theme-wine .obirtus-top-bar { border-bottom-color: rgba(241, 59, 86, .26); background: rgba(8, 10, 23, .9); }
+.theme-wine .play-button { background: var(--navith-red); box-shadow: 0 8px 26px rgba(241, 59, 86, .24); }
+.theme-wine .play-button:hover { background: #ff5068; box-shadow: 0 10px 30px rgba(241, 59, 86, .34); }
+.theme-wine .hero-tag { color: #fff !important; }
+.theme-wine .hero-dynamic-title { text-shadow: 0 0 32px rgba(241, 59, 86, .14); }
+.theme-wine .view-header-title,
+.theme-wine .settings-subtitle { color: #fbf8fa; }
+
+@keyframes navith-logo-render {
+  0% { clip-path: inset(0 100% 0 0); filter: brightness(2.2) drop-shadow(0 0 18px rgba(241,59,86,.58)); opacity: .35; }
+  72% { clip-path: inset(0 0 0 0); filter: brightness(1.2) drop-shadow(0 0 12px rgba(241,59,86,.24)); opacity: 1; }
+  100% { clip-path: inset(0 0 0 0); filter: drop-shadow(0 8px 24px rgba(1,2,12,.38)); opacity: 1; }
+}
+
+@keyframes navith-character-arrive {
+  from { opacity: 0; transform: translate3d(24px, 16px, 0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes navith-copy-arrive {
+  from { opacity: 0; transform: translate3d(-12px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes navith-card-arrive {
+  from { opacity: 0; transform: translate3d(0, 12px, 0) scale(.99); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes navith-status-pulse {
+  0% { opacity: .75; transform: scale(.7); }
+  100% { opacity: 0; transform: scale(1.85); }
+}
+
+@media (max-width: 1120px) {
+  .navith-login-stage { grid-template-columns: minmax(290px, 1fr) minmax(340px, 400px); gap: 28px; padding-right: 46px; padding-left: 54px; }
+  .navith-story-title { font-size: clamp(24px, 2.9vw, 36px); }
+  .navith-hero-art { width: 53%; opacity: .55; }
+}
+
+@media (max-width: 900px) {
+  .navith-login-stage { grid-template-columns: minmax(0, 1fr) minmax(330px, 390px); gap: 20px; padding-right: 28px; padding-left: 34px; }
+  .navith-story-title { font-size: clamp(24px, 3vw, 35px); }
+  .navith-wordmark { width: 190px; margin-bottom: 27px; }
+  .navith-feature-row { gap: 6px; }
+  .navith-feature-row span { padding: 7px 8px; font-size: 8px; }
+  .navith-auth-card { padding: 23px 21px 19px; }
+  .navith-hero-art { width: 46%; opacity: .34; }
+}
+
+@media (max-height: 720px) {
+  .navith-titlebar { height: 46px; min-height: 46px; }
+  .navith-login-stage { padding-top: 22px; padding-bottom: 22px; }
+  .navith-story-panel { padding-top: 0; }
+  .navith-status-line { margin-bottom: 16px; }
+  .navith-wordmark { width: 185px; margin-bottom: 20px; }
+  .navith-story-title { font-size: clamp(23px, 3vw, 36px); }
+  .navith-story-copy { margin: 13px 0 17px; font-size: 13px; }
+  .navith-story-signature { margin-top: 24px; }
+  .navith-auth-card { padding-top: 19px; padding-bottom: 16px; }
+  .navith-auth-kicker { margin-top: 18px; }
+  .navith-auth-card h2 { font-size: 24px; }
+  .navith-auth-description { margin: 6px 0 11px; }
+  .navith-auth-footnote { margin-top: 12px; }
+  .navith-login-footer { min-height: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navith-status-line > span::after,
+  .navith-wordmark,
+  .navith-hero-art img,
+  .navith-story-panel,
+  .navith-auth-card { animation: none !important; }
+  .navith-provider-button { transition: none; }
+}
